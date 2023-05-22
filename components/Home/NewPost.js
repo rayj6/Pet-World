@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function App({ WIDTH, HEIGHT }) {
+export default function NewPost({ WIDTH, HEIGHT }) {
     const styles = StyleSheet.create({
         container: {
             position: "relative",
             top: WIDTH / 6,
+            marginBottom: WIDTH / 8,
 
             width: WIDTH / 1.1,
             minHeight: WIDTH / 2.5,
@@ -186,7 +187,7 @@ export default function App({ WIDTH, HEIGHT }) {
             quality: 1,
         });
 
-        if (!result.cancelled) {
+        if (!result.canceled) {
             setImage(result.uri);
         }
     }
