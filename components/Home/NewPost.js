@@ -10,7 +10,7 @@ export default function App({ WIDTH, HEIGHT }) {
 
             width: WIDTH / 1.1,
             minHeight: WIDTH / 2.5,
-            maxHeight: WIDTH * 1.5,
+            maxHeight: WIDTH * 2,
 
             borderRadius: WIDTH / 20,
             flexDirection: "column",
