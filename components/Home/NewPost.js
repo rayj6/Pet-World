@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
+import { saveUserInfoToFirestore } from "../../HandleFunctions/PetNetwork/index";
+
 export default function NewPost({ WIDTH, HEIGHT }) {
     const styles = StyleSheet.create({
         container: {
@@ -168,6 +170,9 @@ export default function NewPost({ WIDTH, HEIGHT }) {
     });
 
     const [image, setImage] = useState(null);
+    const [username, setUsername] = useState("");
+    const [userid, setUserid] = useState("");
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         // Request permission to access the device's image library or camera
@@ -179,7 +184,7 @@ export default function NewPost({ WIDTH, HEIGHT }) {
         })();
     }, []);
 
-    async function selectImage() {
+    const selectImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -188,8 +193,15 @@ export default function NewPost({ WIDTH, HEIGHT }) {
         });
 
         if (!result.canceled) {
-            setImage(result.uri);
+            if (Array.isArray(result.assets) && result.assets.length > 0) {
+                const selectedAsset = result.assets[0];
+                setImage(selectedAsset.uri);
+            }
         }
+    };
+
+    function handlePost() {
+        saveUserInfoToFirestore(status, setStatus, image, setImage);
     }
 
     return (
@@ -211,7 +223,14 @@ export default function NewPost({ WIDTH, HEIGHT }) {
                 </View>
             </View>
 
-            <TextInput style={styles.postInput} multiline={true} placeholder="Type something here..." placeholderTextColor={"#CCCCCC"} />
+            <TextInput
+                style={styles.postInput}
+                multiline={true}
+                placeholder="Type something here..."
+                placeholderTextColor={"#CCCCCC"}
+                value={status}
+                onChangeText={(text) => setStatus(text)}
+            />
 
             <View style={styles.imageContainer}>{image && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />}</View>
 
@@ -227,7 +246,7 @@ export default function NewPost({ WIDTH, HEIGHT }) {
                         <Image resizeMode="contain" style={styles.addItemLogo} source={require("../../assets/darkAssets/newPost-addEmotion.png")} />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.shareBtn}>
+                <TouchableOpacity style={styles.shareBtn} onPress={handlePost}>
                     <Text style={styles.shareBtnText}>Share</Text>
                 </TouchableOpacity>
             </View>

@@ -1,13 +1,14 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
-export default function NavBar({ WIDTH, HEIGHT }) {
+export default function NavBar({ WIDTH, HEIGHT, username, userid, status, image }) {
     const styles = StyleSheet.create({
         container: {
             position: "relative",
             marginTop: WIDTH / 10,
 
             width: WIDTH / 1.1,
-            height: WIDTH * 1.17,
+            minHeight: WIDTH / 2.1,
+            maxHeight: WIDTH * 1.5,
 
             borderRadius: WIDTH / 20,
             flexDirection: "column",
@@ -85,7 +86,8 @@ export default function NavBar({ WIDTH, HEIGHT }) {
             top: WIDTH / 20,
 
             width: "92%",
-            height: WIDTH / 5,
+            minHeight: WIDTH / 20,
+            maxHeight: WIDTH / 5,
 
             overflow: "hidden",
         },
@@ -95,6 +97,44 @@ export default function NavBar({ WIDTH, HEIGHT }) {
             fontWeight: "300",
             textAlign: "justify",
             color: "#FFFFFF",
+        },
+
+        imageContainer: {
+            marginTop: WIDTH / 10,
+
+            width: "90%",
+            minHeight: 0,
+            maxHeight: WIDTH / 1.15,
+
+            borderRadius: WIDTH / 40,
+
+            overflow: "hidden",
+            backgroundColor: "#FFFFFF",
+        },
+
+        bottomContainer: {
+            marginTop: WIDTH / 20,
+            marginBottom: WIDTH / 40,
+
+            width: "100%",
+            height: WIDTH / 8,
+
+            paddingRight: "40%",
+
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+        },
+
+        bottomItemContainer: {
+            marginLeft: WIDTH / 20,
+
+            width: "25%",
+            height: "80%",
+
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
         },
     });
 
@@ -107,8 +147,8 @@ export default function NavBar({ WIDTH, HEIGHT }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.nameContainer}>
-                    <Text style={styles.username}>Ray Johnson</Text>
-                    <Text style={styles.userid}>@rayj6</Text>
+                    <Text style={styles.username}>{username}</Text>
+                    <Text style={styles.userid}>@{userid}</Text>
                 </View>
                 <View style={styles.timeContainer}>
                     <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF" }}>Just now</Text>
@@ -116,11 +156,24 @@ export default function NavBar({ WIDTH, HEIGHT }) {
             </View>
 
             <View style={styles.displayStatus}>
-                <Text style={styles.status}>
-                    scrambled it to make a type specimen book. It has survived only five centuries, but also the leap into electronic type remaining essentially
-                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                    desktop publishing software like Aldus PageMaker
-                </Text>
+                <Text style={styles.status}>{status}</Text>
+            </View>
+
+            <View style={styles.imageContainer}>{image && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />}</View>
+
+            <View style={styles.bottomContainer}>
+                <TouchableOpacity style={styles.bottomItemContainer}>
+                    <Image style={{ width: "40%", height: "80%" }} resizeMode="contain" source={require("../../assets/darkAssets/post-like.png")} />
+                    <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF", width: "40%" }}>0</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.bottomItemContainer}>
+                    <Image style={{ width: "40%", height: "80%" }} resizeMode="contain" source={require("../../assets/darkAssets/post-comment.png")} />
+                    <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF", width: "40%" }}>0</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.bottomItemContainer}>
+                    <Image style={{ width: "40%", height: "80%" }} resizeMode="contain" source={require("../../assets/darkAssets/post-share.png")} />
+                    <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF", width: "40%" }}>0</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
