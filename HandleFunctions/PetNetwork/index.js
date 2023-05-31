@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { db, auth } from "../../firebase.config";
+import { db, auth, storage } from "../../firebase.config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 // ----------------------------------------------------------------
@@ -7,45 +8,45 @@ export { saveUserInfoToFirestore, readAllData };
 // ----------------------------------------------------------------
 
 const saveUserInfoToFirestore = async (userStatus, setUserStatus, image, setImage) => {
-    // onAuthStateChanged(auth, async (user) => {
-    //     if (user) {
-    // username = user.displayName;
-    // uid = user.uid;
-    username = "Ray Johnson";
-    uid = "rayj6";
-    const timestamp = Timestamp.now();
-
     try {
-        const userRef = doc(db, `PetNetwork/SocialMedia/hanoi/${timestamp}`);
+        const timestamp = Timestamp.now();
+        const username = "Ray Johnson";
+        const userid = "rayj6";
+
+        // Upload image to Firebase Storage
+        const storageRef = ref(storage, `images/${timestamp}`);
+        await uploadBytes(storageRef, image);
+
+        // Get the image download URL
+        const imageUrl = await getDownloadURL(storageRef);
+
+        // Create a document reference in Firestore
+        const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${timestamp}`);
+
+        // Set the user data in Firestore
         const userData = {
             username,
-            uid,
-            // userAvt,
+            userid,
             userStatus,
-            image,
+            imageUrl,
         };
         await setDoc(userRef, userData);
+
         console.log("User data saved successfully!");
         setUserStatus("");
         setImage(null);
-        readAllData();
     } catch (error) {
-        console.error("Error saving user information: ", error);
+        console.error("Error posting user information: ", error);
     }
-    // }
-    //  else {
-    //     console.log("No user is currently signed in.");
-    // }
-    // });
 };
 
 const readAllData = async (setData) => {
-    const currentLocationRef = collection(db, "PetNetwork", "SocialMedia", `hanoi`);
-    const querySnapshot = await getDocs(currentLocationRef);
+    const currentRef = collection(db, "PetWorld", "SocialMedia", `hanoi`);
+    const querySnapshot = await getDocs(currentRef);
     const usersData = [];
     querySnapshot.forEach((doc) => {
-        const { userStatus, image, username, uid } = doc.data();
-        usersData.push({ userStatus, image, username, uid });
+        const { userStatus, imageUrl, username, userid } = doc.data();
+        usersData.push({ userStatus, imageUrl, username, userid });
     });
     console.log("Users data retrieved successfully!");
     setData(usersData);
