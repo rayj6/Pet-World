@@ -194,8 +194,7 @@ export default function NewPost({ WIDTH, HEIGHT }) {
 
         if (!result.canceled) {
             if (Array.isArray(result.assets) && result.assets.length > 0) {
-                const selectedAsset = result.assets[0];
-                setImage(selectedAsset.uri);
+                setImage(result.assets[0].uri);
             }
         }
     };

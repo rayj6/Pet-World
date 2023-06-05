@@ -109,7 +109,7 @@ export default function NavBar({ WIDTH, HEIGHT, username, userid, status, image 
             borderRadius: WIDTH / 40,
 
             overflow: "hidden",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#313658",
         },
 
         bottomContainer: {

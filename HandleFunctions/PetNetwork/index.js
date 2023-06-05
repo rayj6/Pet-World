@@ -1,27 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { db, auth, storage } from "../../firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc, collection, getDocs, Timestamp } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 // ----------------------------------------------------------------
 export { saveUserInfoToFirestore, readAllData };
 // ----------------------------------------------------------------
 
 const saveUserInfoToFirestore = async (userStatus, setUserStatus, image, setImage) => {
+    const timestamp = Date.now();
+
+    const uploadImage = async (uri) => {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+                console.log(e);
+                reject(new TypeError("Network request failed"));
+            };
+            xhr.responseType = "blob";
+            xhr.open("GET", uri, true);
+            xhr.send(null);
+        });
+
+        try {
+            const storageRef = ref(storage, `Images/image-${timestamp}`);
+            const result = await uploadBytes(storageRef, blob);
+        } catch (error) {
+            alert(error);
+        }
+    };
+
     try {
-        const timestamp = Timestamp.now();
         const username = "Ray Johnson";
         const userid = "rayj6";
 
         // Upload image to Firebase Storage
-        const storageRef = ref(storage, `images/${timestamp}`);
-        await uploadBytes(storageRef, image);
+        const storageRef = ref(storage, `Images/image-${timestamp}`);
+        await uploadImage(image);
 
         // Get the image download URL
         const imageUrl = await getDownloadURL(storageRef);
 
         // Create a document reference in Firestore
-        const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${timestamp}`);
+        const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${Date.now()}`);
 
         // Set the user data in Firestore
         const userData = {
@@ -48,6 +72,6 @@ const readAllData = async (setData) => {
         const { userStatus, imageUrl, username, userid } = doc.data();
         usersData.push({ userStatus, imageUrl, username, userid });
     });
-    console.log("Users data retrieved successfully!");
+    // console.log("Users data retrieved successfully!");
     setData(usersData);
 };

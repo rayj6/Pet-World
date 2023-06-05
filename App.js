@@ -4,7 +4,7 @@ import LandingPage from "./mainScreens/LandingPage";
 export default function App() {
     return (
         <>
-            <LandingPage />
+            <Home />
         </>
     );
 }
