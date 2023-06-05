@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Dimensions, Image, StatusBar, TouchableOpacity 
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
 
-export default function LandingPage() {
+export default function LandingPage({ navigation }) {
     return (
         <View style={styles.container}>
             <StatusBar barStyle={"default"} />
@@ -20,13 +20,13 @@ export default function LandingPage() {
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.bottom1}>
-                    <TouchableOpacity style={styles.loginBtn}>
+                    <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("Login")}>
                         <Text style={styles.loginTitle}>Continue your journey</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.bottom2}>
                     <Text style={styles.registerTitle}>Don't have an account ?</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Register")}>
                         <Text style={styles.register}>Register</Text>
                     </TouchableOpacity>
                 </View>

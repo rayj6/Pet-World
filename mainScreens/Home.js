@@ -10,7 +10,7 @@ import { readAllData } from "../HandleFunctions/PetNetwork/index";
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
 
-export default function App() {
+export default function Home() {
     const [isStatusBarHidden, setStatusBarHidden] = useState(false);
     const [Data, setData] = useState([]);
 
