@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 export { saveUserInfoToFirestore, readAllData };
 // ----------------------------------------------------------------
 
-const saveUserInfoToFirestore = async (userStatus, setUserStatus, image, setImage) => {
+const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStatus, image, setImage) => {
     const timestamp = Date.now();
 
     const uploadImage = async (uri) => {
@@ -34,9 +34,6 @@ const saveUserInfoToFirestore = async (userStatus, setUserStatus, image, setImag
     };
 
     try {
-        const username = "Ray Johnson";
-        const userid = "rayj6";
-
         // Upload image to Firebase Storage
         const storageRef = ref(storage, `Images/image-${timestamp}`);
         await uploadImage(image);

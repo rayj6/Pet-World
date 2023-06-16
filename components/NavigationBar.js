@@ -7,7 +7,7 @@ export default function NavBar({ WIDTH, HEIGHT }) {
             bottom: WIDTH / 20,
 
             width: WIDTH / 1.05,
-            height: WIDTH / 6,
+            height: WIDTH / 7,
 
             flexDirection: "row",
             alignItems: "center",

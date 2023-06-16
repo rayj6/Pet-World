@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import { saveUserInfoToFirestore } from "../../HandleFunctions/PetNetwork/index";
 
-export default function NewPost({ WIDTH, HEIGHT }) {
+export default function NewPost({ WIDTH, HEIGHT, username, userid }) {
     const styles = StyleSheet.create({
         container: {
             position: "relative",
@@ -170,8 +170,6 @@ export default function NewPost({ WIDTH, HEIGHT }) {
     });
 
     const [image, setImage] = useState(null);
-    const [username, setUsername] = useState("");
-    const [userid, setUserid] = useState("");
     const [status, setStatus] = useState("");
 
     useEffect(() => {
@@ -200,7 +198,7 @@ export default function NewPost({ WIDTH, HEIGHT }) {
     };
 
     function handlePost() {
-        saveUserInfoToFirestore(status, setStatus, image, setImage);
+        saveUserInfoToFirestore(username, userid, status, setStatus, image, setImage);
     }
 
     return (
@@ -212,8 +210,8 @@ export default function NewPost({ WIDTH, HEIGHT }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.nameContainer}>
-                    <Text style={styles.username}>Ray Johnson</Text>
-                    <Text style={styles.userid}>@rayj6</Text>
+                    <Text style={styles.username}>{username}</Text>
+                    <Text style={styles.userid}>@{userid}</Text>
                 </View>
                 <View style={styles.moreContainer}>
                     <TouchableOpacity style={styles.moreCover}>

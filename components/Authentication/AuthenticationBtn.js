@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from "react-native";
 import axios from "axios";
 
-const url = "http://localhost:3000";
+const url = "https://ad4b-2402-800-613e-dbb5-45dc-e77a-bed7-3962.ngrok-free.app";
 
 export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, email, password, username, userid }) {
     const styles = StyleSheet.create({
@@ -36,9 +36,10 @@ export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, ema
         axios
             .post(`${url}/login`, data)
             .then((response) => {
-                if (response.data === "Login successful") {
-                    console.log("Login successfully!");
-                    navigation.navigate("Home");
+                if (response.data.username.length > 0) {
+                    navigation.navigate("Home", { username: response.data.username, userid: response.data.userid });
+                } else if (response.data === "err") {
+                    alert("Please check your email & password!");
                 }
             })
             .catch((error) => {

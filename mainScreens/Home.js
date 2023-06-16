@@ -10,7 +10,8 @@ import { readAllData } from "../HandleFunctions/PetNetwork/index";
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
 
-export default function Home() {
+export default function Home({ route }) {
+    const { username, userid } = route.params;
     const [isStatusBarHidden, setStatusBarHidden] = useState(false);
     const [Data, setData] = useState([]);
 
@@ -29,12 +30,14 @@ export default function Home() {
         readAllData(setData);
     }, [Data]);
 
+    // console.log(username);
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle={"default"} hidden={isStatusBarHidden} />
 
             <ScrollView showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={16}>
-                <NewPost WIDTH={WIDTH} HEIGHT={HEIGHT} />
+                <NewPost WIDTH={WIDTH} HEIGHT={HEIGHT} username={username} userid={userid} />
                 {Data.map((item, index) => (
                     <Post
                         WIDTH={WIDTH}
