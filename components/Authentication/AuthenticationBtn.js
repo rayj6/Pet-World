@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from "react-native";
 import axios from "axios";
 
-const url = "https://ad4b-2402-800-613e-dbb5-45dc-e77a-bed7-3962.ngrok-free.app";
+const url = "https://d8b3-2402-800-613e-dbb5-bd28-6817-4890-96a0.ngrok-free.app";
 
 export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, email, password, username, userid }) {
     const styles = StyleSheet.create({
@@ -58,12 +58,13 @@ export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, ema
         axios
             .post(`${url}/register`, data)
             .then((response) => {
-                if (response.data === "Data inserted successfully") {
+                if (response.data === "Data inserted successfully!") {
+                    navigation.navigate("Login");
                     console.log("Register successfully!");
                 }
             })
             .catch((error) => {
-                alert("Please check your information!");
+                console.log("Please check your information!");
             });
     };
 

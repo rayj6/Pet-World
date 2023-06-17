@@ -7,8 +7,8 @@ import { onAuthStateChanged } from "firebase/auth";
 export { saveUserInfoToFirestore, readAllData };
 // ----------------------------------------------------------------
 
-const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStatus, image, setImage) => {
-    const timestamp = Date.now();
+const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStatus, image, setImage, postTime) => {
+    const timestamp = postTime;
 
     const uploadImage = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
@@ -34,28 +34,37 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
     };
 
     try {
-        // Upload image to Firebase Storage
-        const storageRef = ref(storage, `Images/image-${timestamp}`);
-        await uploadImage(image);
-
-        // Get the image download URL
-        const imageUrl = await getDownloadURL(storageRef);
-
         // Create a document reference in Firestore
         const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${Date.now()}`);
 
         // Set the user data in Firestore
-        const userData = {
-            username,
-            userid,
-            userStatus,
-            imageUrl,
-        };
-        await setDoc(userRef, userData);
+        if (image != "") {
+            // Upload image to Firebase Storage
+            const storageRef = ref(storage, `Images/image-${timestamp}`);
+            await uploadImage(image);
 
-        console.log("User data saved successfully!");
+            // Get the image download URL
+            const imageUrl = await getDownloadURL(storageRef);
+            const userData = {
+                username,
+                userid,
+                userStatus,
+                imageUrl,
+            };
+            await setDoc(userRef, userData);
+        } else {
+            const userData = {
+                username,
+                userid,
+                userStatus,
+            };
+            await setDoc(userRef, userData);
+        }
+
+        console.log(username + " post saved successfully!");
+        console.log(`CUrrent time: ${postTime}`);
         setUserStatus("");
-        setImage(null);
+        setImage("");
     } catch (error) {
         console.error("Error posting user information: ", error);
     }

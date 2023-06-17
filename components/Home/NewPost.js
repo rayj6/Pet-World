@@ -169,8 +169,19 @@ export default function NewPost({ WIDTH, HEIGHT, username, userid }) {
         },
     });
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState("");
     const [status, setStatus] = useState("");
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
     useEffect(() => {
         // Request permission to access the device's image library or camera
@@ -198,7 +209,7 @@ export default function NewPost({ WIDTH, HEIGHT, username, userid }) {
     };
 
     function handlePost() {
-        saveUserInfoToFirestore(username, userid, status, setStatus, image, setImage);
+        saveUserInfoToFirestore(username, userid, status, setStatus, image, setImage, currentTime);
     }
 
     return (

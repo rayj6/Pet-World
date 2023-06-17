@@ -57,7 +57,16 @@ export default function Login({ navigation }) {
                 setValue={setUserid}
             />
 
-            <AuthenticationBtn WIDTH={WIDTH} HEIGHT={HEIGHT} type={"register"} email={email} password={password} username={username} userid={userid} />
+            <AuthenticationBtn
+                WIDTH={WIDTH}
+                HEIGHT={HEIGHT}
+                navigation={navigation}
+                type={"register"}
+                email={email}
+                password={password}
+                username={username}
+                userid={userid}
+            />
 
             <View style={styles.functionContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}>
