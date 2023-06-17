@@ -35,7 +35,7 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
 
     try {
         // Create a document reference in Firestore
-        const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${Date.now()}`);
+        const userRef = doc(db, `PetWorld/SocialMedia/hanoi/${timestamp}`);
 
         // Set the user data in Firestore
         if (image != "") {
@@ -63,8 +63,6 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
 
         console.log(username + " post saved successfully!");
         console.log(`CUrrent time: ${postTime}`);
-        setUserStatus("");
-        setImage("");
     } catch (error) {
         console.error("Error posting user information: ", error);
     }

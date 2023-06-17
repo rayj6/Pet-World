@@ -210,6 +210,8 @@ export default function NewPost({ WIDTH, HEIGHT, username, userid }) {
 
     function handlePost() {
         saveUserInfoToFirestore(username, userid, status, setStatus, image, setImage, currentTime);
+        setStatus("");
+        setImage("");
     }
 
     return (
