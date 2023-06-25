@@ -20,17 +20,9 @@ export default function Home({ route }) {
         setStatusBarHidden(y > 0); // Hide status bar when scrolled
     };
 
-    const mixData = () => {
-        const shuffledData = [...Data].sort(() => Math.random() - 0.5);
-        setMixedData(shuffledData);
-        setIsMixed(true);
-    };
-
     useEffect(() => {
         readAllData(setData);
     }, [Data]);
-
-    // console.log(username);
 
     return (
         <View style={styles.container}>

@@ -151,7 +151,7 @@ export default function NavBar({ WIDTH, HEIGHT, username, userid, status, image 
                     <Text style={styles.userid}>@{userid}</Text>
                 </View>
                 <View style={styles.timeContainer}>
-                    <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF" }}>Just now</Text>
+                    <Text style={{ fontSize: WIDTH / 30, fontWeight: "300", color: "#FFFFFF" }}></Text>
                 </View>
             </View>
 

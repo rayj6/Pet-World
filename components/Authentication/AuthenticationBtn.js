@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from "react-native";
-import axios from "axios";
 
-const url = "https://d8b3-2402-800-613e-dbb5-bd28-6817-4890-96a0.ngrok-free.app";
+import Login from "../../HandleFunctions/Authentication/Login";
+import Register from "../../HandleFunctions/Authentication/Register";
+
+const url = "https://055c-2402-800-6195-2293-803a-fb84-ba5b-f525.ngrok-free.app";
 
 export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, email, password, username, userid }) {
     const styles = StyleSheet.create({
@@ -27,56 +29,15 @@ export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, ema
         },
     });
 
-    const Login = () => {
-        const data = {
-            email: email,
-            password: password,
-        };
-
-        axios
-            .post(`${url}/login`, data)
-            .then((response) => {
-                if (response.data.username.length > 0) {
-                    navigation.navigate("Home", { username: response.data.username, userid: response.data.userid });
-                } else if (response.data === "err") {
-                    alert("Please check your email & password!");
-                }
-            })
-            .catch((error) => {
-                alert("Please check your email & password!");
-            });
-    };
-
-    const Register = () => {
-        const data = {
-            email: email,
-            password: password,
-            username: username,
-            userid: userid,
-        };
-
-        axios
-            .post(`${url}/register`, data)
-            .then((response) => {
-                if (response.data === "Data inserted successfully!") {
-                    navigation.navigate("Login");
-                    console.log("Register successfully!");
-                }
-            })
-            .catch((error) => {
-                console.log("Please check your information!");
-            });
-    };
-
     if (type === "login") {
         return (
-            <TouchableOpacity style={styles.authenticationBtn} onPress={Login}>
+            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Login(url, email, password, navigation)}>
                 <Text style={styles.authenticationTitle}>Sign in</Text>
             </TouchableOpacity>
         );
     } else if (type === "register") {
         return (
-            <TouchableOpacity style={styles.authenticationBtn} onPress={Register}>
+            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Register(url, email, password, username, userid, navigation)}>
                 <Text style={styles.authenticationTitle}>Register</Text>
             </TouchableOpacity>
         );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, TouchableOpacity } from "react-native";
 
 import InputField from "../components/Authentication/InputField";
 import AuthenticationBtn from "../components/Authentication/AuthenticationBtn";
@@ -14,69 +14,71 @@ export default function Login({ navigation }) {
     const [userid, setUserid] = useState("");
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>REGISTER</Text>
-            <Text style={styles.subTitle}>To start your own journey</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                <Text style={styles.title}>REGISTER</Text>
+                <Text style={styles.subTitle}>To start your own journey</Text>
 
-            <InputField
-                WIDTH={WIDTH}
-                HEIGHT={HEIGHT}
-                title={"Email / phone number"}
-                placeholder={"Your email"}
-                isSecure={false}
-                value={email}
-                setValue={setEmail}
-            />
+                <InputField
+                    WIDTH={WIDTH}
+                    HEIGHT={HEIGHT}
+                    title={"Email / phone number"}
+                    placeholder={"Your email"}
+                    isSecure={false}
+                    value={email}
+                    setValue={setEmail}
+                />
 
-            <InputField
-                WIDTH={WIDTH}
-                HEIGHT={HEIGHT}
-                title={"Password"}
-                placeholder={"Your password"}
-                isSecure={true}
-                value={password}
-                setValue={setPassword}
-            />
-            <InputField
-                WIDTH={WIDTH}
-                HEIGHT={HEIGHT}
-                title={"Username"}
-                placeholder={"Your nick name"}
-                isSecure={false}
-                value={username}
-                setValue={setUsername}
-            />
+                <InputField
+                    WIDTH={WIDTH}
+                    HEIGHT={HEIGHT}
+                    title={"Password"}
+                    placeholder={"Your password"}
+                    isSecure={true}
+                    value={password}
+                    setValue={setPassword}
+                />
+                <InputField
+                    WIDTH={WIDTH}
+                    HEIGHT={HEIGHT}
+                    title={"Username"}
+                    placeholder={"Your nick name"}
+                    isSecure={false}
+                    value={username}
+                    setValue={setUsername}
+                />
 
-            <InputField
-                WIDTH={WIDTH}
-                HEIGHT={HEIGHT}
-                title={"Personal ID"}
-                placeholder={"Your custom ID"}
-                isSecure={false}
-                value={userid}
-                setValue={setUserid}
-            />
+                <InputField
+                    WIDTH={WIDTH}
+                    HEIGHT={HEIGHT}
+                    title={"Personal ID"}
+                    placeholder={"Your custom ID"}
+                    isSecure={false}
+                    value={userid}
+                    setValue={setUserid}
+                />
 
-            <AuthenticationBtn
-                WIDTH={WIDTH}
-                HEIGHT={HEIGHT}
-                navigation={navigation}
-                type={"register"}
-                email={email}
-                password={password}
-                username={username}
-                userid={userid}
-            />
+                <AuthenticationBtn
+                    WIDTH={WIDTH}
+                    HEIGHT={HEIGHT}
+                    navigation={navigation}
+                    type={"register"}
+                    email={email}
+                    password={password}
+                    username={username}
+                    userid={userid}
+                />
 
-            <View style={styles.functionContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                    <Text style={styles.functionTitle}>Already have an account ?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.functionTitle}>Forget your password ?</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+                <View style={styles.functionContainer}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                        <Text style={styles.functionTitle}>Already have an account ?</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={styles.functionTitle}>Forget your password ?</Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     );
 }
 

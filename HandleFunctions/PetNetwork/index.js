@@ -9,6 +9,9 @@ export { saveUserInfoToFirestore, readAllData };
 
 const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStatus, image, setImage, postTime) => {
     const timestamp = postTime;
+    const like = 0;
+    const comment = [];
+    const share = 0;
 
     const uploadImage = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
@@ -50,6 +53,9 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
                 userid,
                 userStatus,
                 imageUrl,
+                like,
+                comment,
+                share,
             };
             await setDoc(userRef, userData);
         } else {
@@ -57,6 +63,9 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
                 username,
                 userid,
                 userStatus,
+                like,
+                comment,
+                share,
             };
             await setDoc(userRef, userData);
         }
