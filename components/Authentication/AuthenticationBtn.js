@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 
 import Login from "../../HandleFunctions/Authentication/Login";
 import Register from "../../HandleFunctions/Authentication/Register";
 
-const url = "https://055c-2402-800-6195-2293-803a-fb84-ba5b-f525.ngrok-free.app";
+const url = "https://localhost:3000";
 
 export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, email, password, username, userid }) {
     const styles = StyleSheet.create({
