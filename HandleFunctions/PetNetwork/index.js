@@ -3,6 +3,8 @@ import { db, auth, storage } from "../../firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, collection, getDocs, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
+import { url } from "../API";
 // ----------------------------------------------------------------
 export { saveUserInfoToFirestore, readAllData };
 // ----------------------------------------------------------------
@@ -48,6 +50,26 @@ const saveUserInfoToFirestore = async (username, userid, userStatus, setUserStat
 
             // Get the image download URL
             const imageUrl = await getDownloadURL(storageRef);
+
+            // insert to mysql
+            console.log(imageUrl);
+            const AxiosData = {
+                content: userStatus,
+                url: imageUrl,
+            };
+
+            axios
+                .post(`${url}/images`, AxiosData)
+                .then((response) => {
+                    if (response.data === "Image: done") {
+                        console.log("Image inserted successfully!");
+                    }
+                })
+                .catch((error) => {
+                    console.log("Please check your information!");
+                    console.log(error);
+                });
+
             const userData = {
                 username,
                 userid,

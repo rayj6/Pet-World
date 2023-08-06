@@ -1,6 +1,7 @@
 import axios from "axios";
+import { url } from "../API";
 
-export default function Login(url, email, password, navigation) {
+export default function Login(email, password, navigation) {
     const data = {
         email: email,
         password: password,

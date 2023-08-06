@@ -1,6 +1,7 @@
 import axios from "axios";
+import { url } from "../API";
 
-export default function Register(url, email, password, username, userid, navigation) {
+export default function Register(email, password, username, userid, navigation) {
     const data = {
         email: email,
         password: password,

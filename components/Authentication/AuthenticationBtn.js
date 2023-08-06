@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 
 import Login from "../../HandleFunctions/Authentication/Login";
 import Register from "../../HandleFunctions/Authentication/Register";
 
-const url = "https://localhost:3000";
-
 export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, email, password, username, userid }) {
     const styles = StyleSheet.create({
         authenticationBtn: {
@@ -31,13 +29,13 @@ export default function authenticationBtn({ WIDTH, HEIGHT, navigation, type, ema
 
     if (type === "login") {
         return (
-            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Login(url, email, password, navigation)}>
+            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Login(email, password, navigation)}>
                 <Text style={styles.authenticationTitle}>Sign in</Text>
             </TouchableOpacity>
         );
     } else if (type === "register") {
         return (
-            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Register(url, email, password, username, userid, navigation)}>
+            <TouchableOpacity style={styles.authenticationBtn} onPress={() => Register(email, password, username, userid, navigation)}>
                 <Text style={styles.authenticationTitle}>Register</Text>
             </TouchableOpacity>
         );
