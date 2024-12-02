@@ -1,36 +1,28 @@
 {
   "expo": {
-    "name": "pet-world",
-    "slug": "pet-world",
+    "name": "pet",
+    "slug": "pet",
     "version": "1.0.0",
-    "orientation": "default",
-    "userInterfaceStyle": "automatic",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "splash": {
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
-      "image": "./assets/splash.png"
+      "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.rayj.petworld"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff",
-        "foregroundImage": "./assets/adaptive-icon.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/logo.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "d20f77d1-5498-4940-8772-4182101520fb"
-      }
+      "favicon": "./assets/favicon.png"
     }
   }
 }
