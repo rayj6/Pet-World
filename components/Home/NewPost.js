@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-import { saveUserInfoToFirestore } from "../../HandleFunctions/PetNetwork/index";
+import { saveUserInfoToFirestore } from "../../functions/PetNetwork/index";
 
 export default function NewPost({ WIDTH, HEIGHT, username, userid }) {
   const styles = StyleSheet.create({

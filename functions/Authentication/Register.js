@@ -15,14 +15,11 @@ export default async function Register(
     userid,
   };
 
-  console.log("Request Data:", data);
-
   try {
-    const response = await axios.post(`${url}/api/register`, data);
-    console.log("Response:", response.data);
+    const response = await axios.post(`${url}/api/auth/register`, data);
+    console.log("Response:", response);
 
-    // Optionally navigate to another screen after success
-    // navigation.navigate('SomeScreen');
+    navigation.navigate("Login");
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios Error:", error.message);
