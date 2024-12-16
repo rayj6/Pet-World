@@ -6,10 +6,12 @@ import LandingPage from "./mainScreens/LandingPage";
 import Login from "./mainScreens/Login";
 import Register from "./mainScreens/Register";
 import Message from "./mainScreens/Message";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  LogBox.ignoreAllLogs();
   return (
     <NavigationContainer>
       <Stack.Navigator

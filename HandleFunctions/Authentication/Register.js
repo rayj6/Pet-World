@@ -1,23 +1,33 @@
 import axios from "axios";
 import { url } from "../API";
 
-export default function Register(email, password, username, userid, navigation) {
-    const data = {
-        email: email,
-        password: password,
-        username: username,
-        userid: userid,
-    };
+export default async function Register(
+  email,
+  password,
+  username,
+  userid,
+  navigation
+) {
+  const data = {
+    email,
+    password,
+    username,
+    userid,
+  };
 
-    axios
-        .post(`${url}/register`, data)
-        .then((response) => {
-            if (response.data === "Data inserted successfully!") {
-                navigation.navigate("Login");
-                console.log("Register successfully!");
-            }
-        })
-        .catch((error) => {
-            console.log("Please check your information!");
-        });
+  console.log("Request Data:", data);
+
+  try {
+    const response = await axios.post(`${url}/api/register`, data);
+    console.log("Response:", response.data);
+
+    // Optionally navigate to another screen after success
+    // navigation.navigate('SomeScreen');
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios Error:", error.message);
+    } else {
+      console.error("Unexpected Error:", error);
+    }
+  }
 }
